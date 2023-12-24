@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="{% static 'css/index.css' %}">
 </head>
 <body>
-    <h1 class="balance2">Search for Foodtrucks Near You</h1>
+    <h1 class="balance2">Find Foodtrucks Near You</h1>
     <p class="balance">Input your longitude and latitude below</p>
     
     <!-- Form for user input -->
@@ -20,11 +20,13 @@
         <input type="text" name="longitude" required>
         <button type="submit">Search</button>
     </form>
-
+      
     <!-- Display nearby food trucks -->
     <h2 class="balance2">Nearby Food Trucks</h2>
+
     <ul>
         {% for foodtruck in foodtrucks %}
+
             <li class="food-truck-card">
                 <h3><span class="cadio">Truck Applicant:</span><br> {{ foodtruck.applicant }}</h3>
                 <p><span class="cadio">Location:</span> {{ foodtruck.location }}</p>
