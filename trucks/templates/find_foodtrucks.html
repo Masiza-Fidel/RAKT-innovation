@@ -1,0 +1,106 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Food Trucks</title>
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+</head>
+<body>
+    <h1 class="balance2">Search for Foodtrucks Near You</h1>
+    <p class="balance">Input your longitude and latitude below</p>
+    
+    <!-- Form for user input -->
+    <form method="post" action="{% url 'find_foodtrucks' %}">
+        {% csrf_token %}
+        <label for="latitude">Latitude:</label>
+        <input type="text" name="latitude" required>
+        <label for="longitude">Longitude:</label>
+        <input type="text" name="longitude" required>
+        <button type="submit">Search</button>
+    </form>
+
+    <!-- Display nearby food trucks -->
+    <h2 class="balance2">Nearby Food Trucks</h2>
+    <ul>
+        {% for foodtruck in foodtrucks %}
+            <li class="food-truck-card">
+                <h3><span class="cadio">Truck Applicant:</span><br> {{ foodtruck.applicant }}</h3>
+                <p><span class="cadio">Location:</span> {{ foodtruck.location }}</p>
+                <p><span class="cadio">Status:</span> {{ foodtruck.status }}</p>
+                <a class="read-more-link" href="#" onclick="openPopup('{{ foodtruck.applicant }}', '{{ foodtruck.schedule }}', '{{ foodtruck.food_items }}', '{{ foodtruck.address }}', '{{ foodtruck.facility_type }}')">Read More</a>
+            </li>
+        {% endfor %}
+    </ul> 
+
+    <!-- Read More Popup -->
+    <div class="read-more-popup" id="readMorePopup">
+        <span class="close-button" onclick="closePopup()">&times;</span>
+        <h2 id="popupTitle"></h2>
+        <div class="popup-field" id="popupSchedule"></div>
+        <div class="popup-field" id="popupFoodItems"></div>
+        <div class="popup-field" id="popupAddress"></div>
+        <div class="popup-field" id="popupFacilityType"></div>
+    </div>
+
+    {% if error_message %}
+        <p class="error_message">{{ error_message }}</p>
+    {% endif %}
+
+    <!-- Pagination -->
+    {% if foodtrucks %}
+        <div class="pagination-container">
+            <span>Page {{ current_page }} of {{ last_page }}</span>
+            <ul class="pagination">
+                {% for page_number in display_pages %}
+                    <li{% if page_number == current_page %} class="active"{% endif %}>
+                        <a href="?page={{ page_number }}">{{ page_number }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+    <!-- End of Pagination -->
+
+
+
+
+
+        <!---pagination scripts-->
+    <script>
+        // JavaScript for highlighting the current page
+        document.addEventListener('DOMContentLoaded', function () {
+            var currentPage = {{ current_page }};
+            var paginationLinks = document.querySelectorAll('.pagination a');
+
+            paginationLinks.forEach(function (link) {
+                var pageNumber = parseInt(link.innerText);
+
+                if (pageNumber === currentPage) {
+                    link.parentElement.classList.add('active');
+                }
+            });
+        });
+    </script>
+
+    <!---end of pagination scripts-->
+
+    <!---readmore pop-up card scripts-->
+    <script>
+        function openPopup(title, schedule, foodItems, address, facilityType) {
+            document.getElementById('popupTitle').innerText = title;
+            document.getElementById('popupSchedule').innerText = `Schedule: ${schedule}`;
+            document.getElementById('popupFoodItems').innerText = `Food Items: ${foodItems}`;
+            document.getElementById('popupAddress').innerText = `Address: ${address}`;
+            document.getElementById('popupFacilityType').innerText = `Facility Type: ${facilityType}`;
+
+            document.getElementById('readMorePopup').style.display = 'block';
+        }
+
+        function closePopup() {
+            document.getElementById('readMorePopup').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
