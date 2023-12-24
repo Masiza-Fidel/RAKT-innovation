@@ -21,28 +21,27 @@ Users input their latitude and longitude to discover nearby food trucks, and the
 A "Read More" popup enhances user experience by offering detailed information about a selected food truck.
 
 
-   ```bash
+   
 
 # Installation
+   ```bash
 
-## Windows
+Windows
 
-Clone the repository: git clone <https://github.com/Masiza-Fidel/RAKT-innovation.git>
-
-Navigate to the project directory: cd RAKT-innovation/innovate
-Create a virtual environment: python -m venv venv
-Activate the virtual environment: venv\Scripts\activate
+Clone  repo: git clone <https://github.com/Masiza-Fidel/RAKT-innovation.git>
+project directory: cd RAKT-innovation/innovate
+virtual environment: python -m venv venv
+Activate: venv\Scripts\activate
 Install dependencies: pip install -r requirements.txt
 Run migrations: python manage.py migrate
 Run the development server: python manage.py runserver
-pip install -r requirements.txt
 
 
-## macOS
-Clone the repository: git clone <https://github.com/Masiza-Fidel/RAKT-innovation.git>
-Navigate to the project directory: cd RAKT-innovation/innovate
-Create a virtual environment: python3 -m venv venv
-Activate the virtual environment: source venv/bin/activate
+macOS
+Clone repo: git clone <https://github.com/Masiza-Fidel/RAKT-innovation.git>
+project directory: cd RAKT-innovation/innovate
+virtual environment: python3 -m venv venv
+virtual environment: source venv/bin/activate
 Install dependencies: pip install -r requirements.txt
 Run migrations: python manage.py migrate
 Run the development server: python manage.py runserver
