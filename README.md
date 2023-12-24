@@ -7,7 +7,7 @@ The Food Truck Finder project is a Django-based application designed to explore 
 ### Database Design
 The backend utilizes Django models to represent food trucks, providing a clear structure for storing and retrieving data.
 Sqlite3 database is employed to persistently store food truck information.
-###Data Import
+### Data Import
 The CSV import script (import_foodtrucks.py) efficiently reads the San Francisco Food Truck dataset, transforming each row into a Django FoodTruck model instance.
 Database transactions ensure atomicity during the import process, handling potential errors gracefully.
 ### Haversine Algorithm
