@@ -3,6 +3,7 @@ from django.shortcuts import render
 from .models import FoodTruck
 import math
 
+# Haversine mathematical method to calculate distance between two points using latitude and longitude
 def haversine(lat1, lon1, lat2, lon2):
     # Convert latitude and longitude from degrees to radians
     lat1, lon1, lat2, lon2 = map(math.radians, [lat1, lon1, lat2, lon2])
@@ -20,16 +21,19 @@ def haversine(lat1, lon1, lat2, lon2):
     distance = radius * c
     return distance
 
+# This function handles the user request, pagination, retrieving the data from the DB, and displaying to users
 def find_foodtrucks(request):
     user_latitude = 0.0
     user_longitude = 0.0
     nearby_foodtrucks = []
     error_message = None
 
-    page = request.GET.get('page', 1)  # Get the current page from the query parameters
+    # Get the current page from the query parameters
+    page = request.GET.get('page', 1)
 
     if request.method == 'POST':
         try:
+            # Retrieve user input for latitude and longitude from the POST request
             user_latitude = float(request.POST.get('latitude', 0.0))
             user_longitude = float(request.POST.get('longitude', 0.0))
 
@@ -55,10 +59,10 @@ def find_foodtrucks(request):
         except ValueError as e:
             error_message = f"Invalid latitude/longitude input: {e}"
     else:
-        # If the request is not POST, retrieve user's search query from the session
+        # If the request is not POST, retrieve the user's search query from the session
         user_location = request.session.get('user_location', (0.0, 0.0))
 
-        # Find food trucks within a certain distance based on user's search query
+        # Find food trucks within a certain distance based on the user's search query
         foodtrucks = FoodTruck.objects.all()
 
         for foodtruck in foodtrucks:
@@ -76,10 +80,10 @@ def find_foodtrucks(request):
     try:
         current_page_items = paginator.page(page)
     except PageNotAnInteger:
-        # If page is not an integer, deliver first page.
+        # If the page is not an integer, deliver the first page
         current_page_items = paginator.page(1)
     except EmptyPage:
-        # If page is out of range (e.g. 9999), deliver last page of results.
+        # If the page is out of range (e.g., 9999), deliver the last page of results
         current_page_items = paginator.page(paginator.num_pages)
 
     # Calculate the page numbers to display

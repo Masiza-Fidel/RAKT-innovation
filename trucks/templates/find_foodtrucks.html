@@ -20,7 +20,7 @@
         <input type="text" name="longitude" required>
         <button type="submit">Search</button>
     </form>
-      
+      <!--end of input form-->
     <!-- Display nearby food trucks -->
     <h2 class="balance2">Nearby Food Trucks</h2>
 
@@ -35,6 +35,7 @@
             </li>
         {% endfor %}
     </ul> 
+    <!--end of display nearby trucks-->
 
     <!-- Read More Popup -->
     <div class="read-more-popup" id="readMorePopup">
@@ -45,10 +46,14 @@
         <div class="popup-field" id="popupAddress"></div>
         <div class="popup-field" id="popupFacilityType"></div>
     </div>
+ 
+<!---end of readmore popup-->
 
-    {% if error_message %}
-        <p class="error_message">{{ error_message }}</p>
-    {% endif %}
+     <!---error message-->
+        {% if error_message %}
+         <p class="error_message">{{ error_message }}</p>
+        {% endif %}
+       <!---end of error message-->
 
     <!-- Pagination -->
     {% if foodtrucks %}
@@ -64,9 +69,6 @@
         </div>
     {% endif %}
     <!-- End of Pagination -->
-
-
-
 
 
         <!---pagination scripts-->
@@ -104,5 +106,6 @@
             document.getElementById('readMorePopup').style.display = 'none';
         }
     </script>
+    <!---end of readmore pop-up card scripts-->
 </body>
 </html>
